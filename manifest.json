@@ -389,7 +389,8 @@
 					"html/tab-webview-subpage-contact.html",
 					"html/new-webview.html",
 					"html/news/show.html",
-					"html/test/show.html"
+					"html/test/show.html",
+					"html/image/upload.html"
 				],
 				"priority": 0
 			},

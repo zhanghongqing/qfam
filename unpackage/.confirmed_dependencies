@@ -16,7 +16,8 @@
 			"html/tab-webview-subpage-about.html",
 			"html/new-webview.html",
 			"html/news/show.html",
-			"html/test/show.html"
+			"html/test/show.html",
+			"html/image/upload.html"
 		]
 	},
 	"launch.html": {

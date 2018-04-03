@@ -8,8 +8,8 @@ let data = [{
 	url: 'html/test/show.html'
 }, {
 	icon: '#icon-shouye',
-	name: '首页',
-	url: 'http://www.qiangfen.com'
+	name: '上传图片',
+	url: 'html/image/upload.html'
 }, {
 	icon: '#icon-shouye',
 	name: '首页',

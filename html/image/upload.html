@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<button type="button" class="mui-btn mui-btn-outlined open">默认</button>
+		<script src="../../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				mui.init()
+				mui.plusReady(function() {
+					init()
+				})
+			})
+
+			function init() {
+				$('.open').on('click', function() {
+					plus.gallery.pick(
+						function(path) {
+							mui.toast(path);
+						},
+						function(e) {
+							mui.toast(e);
+						}
+					);
+				})
+			}
+		</script>
+	</body>
+
+</html>
