@@ -34,7 +34,9 @@
 					//bounce: false,//滚动条是否有弹力默认是true
 					//indicators: false, //是否显示滚动条,默认是true
 				});
-				init()
+				mui.plusReady(function() {
+					init()
+				})
 			})
 
 			function init() {
@@ -43,8 +45,9 @@
 
 			function getNewsDetail() {
 				var id = util.getQueryString('id')
-				plus.nativeUI.showWaiting()
+				var loading = plus.nativeUI.showWaiting()
 				util.getData('news/detail?id=' + id, '', function(data) {
+					loading.close()
 					$('#newsDetail .title').text(data[0].title)
 					$('#newsDetail .time').text(new Date(data[0].createTime).toLocaleString())
 					$('#newsDetail .text pre').text(data[0].text)
