@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/news/detail.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">资讯详情</h1>
+		</header>
+		<div id="newsDetail" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<!--这里放置真实显示的DOM内容-->
+				<h1 class="title"></h1>
+				<p class="time"></p>
+				<div class="text">
+					<pre></pre>
+				</div>
+			</div>
+		</div>
+		<script src="../../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/util.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				mui.init()
+				mui(".mui-scroll-wrapper").scroll({
+					//bounce: false,//滚动条是否有弹力默认是true
+					//indicators: false, //是否显示滚动条,默认是true
+				});
+				init()
+			})
+
+			function init() {
+				getNewsDetail()
+			}
+
+			function getNewsDetail() {
+				var id = util.getQueryString('id')
+				plus.nativeUI.showWaiting()
+				util.getData('news/detail?id=' + id, '', function(data) {
+					$('#newsDetail .title').text(data[0].title)
+					$('#newsDetail .time').text(new Date(data[0].createTime).toLocaleString())
+					$('#newsDetail .text pre').text(data[0].text)
+				}, function() {
+					mui.toast('获取数据失败', {
+						duration: 'long',
+						type: 'div'
+					})
+				})
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,40 @@
+#newsShow{
+	background: #fff;
+}
+#newsShow .tableList{
+	width: 100%;
+}
+#newsShow .tableList .listItem{
+	padding: 10px;
+	position: relative;
+	border: 1px solid #eee;
+}
+#newsShow .tableList .listItem .title{
+	width: calc(100% - 40px);
+	font-size: 14px;
+	color: #666;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+#newsShow .tableList .listItem .time{
+	font-size: 13px;
+	color: #999;
+}
+#newsShow .tableList .listItem .listBtn{
+	width: 40px;
+	height: 40px;
+	position: absolute;
+	top: 50%;
+	right: 14px;
+	margin-top: -20px;
+	line-height: 40px;
+	text-align: center;
+}
+#newsShow .mui-pagination>li>a, #newsShow .mui-pagination>li>span{
+	padding: 4px 10px;
+}
+#newsShow .pageBox{
+	text-align: center;
+	padding: 10px 0;
+}

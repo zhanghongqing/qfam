@@ -1,0 +1,23 @@
+#newsDetail{
+	background: #fff;
+}
+#newsDetail .title{
+	font-size: 1.1em;
+	line-height: 1.3em;
+	color: #444;
+	font-weight: normal;
+	padding: 0.6em;
+	text-align: center;
+}
+#newsDetail .time{
+	text-align: center;
+}
+#newsDetail .text{
+	padding: 10px;
+}
+#newsDetail .text pre{
+	white-space: pre-wrap;
+	line-height: 1.4em;
+	font-size: 0.8em;
+	color: #666;
+}

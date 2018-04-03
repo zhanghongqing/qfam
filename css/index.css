@@ -1,0 +1,110 @@
+html,
+body {
+	background-color: #fff;
+}
+
+.indexPage {
+	background: #fff;
+}
+
+.title {
+	margin: 20px 15px 10px;
+	color: #6d6d72;
+	font-size: 15px;
+	padding-bottom: 51px;
+}
+
+.mui-grid-view.mui-grid-9 .mui-table-view-cell>a:not(.mui-btn) {
+	padding: 0;
+}
+
+.mui-table-view.mui-grid-view.mui-grid-9 {
+	padding-top: 10px;
+	background: #fff;
+}
+
+.mui-table-view.mui-grid-view.mui-grid-9 .mui-table-view-cell {
+	border: none;
+}
+.mui-table-view.mui-grid-view.mui-grid-9 .mui-table-view-cell .mui-media-body{
+	font-size: 3vw;
+	color: #666;
+	margin-top: 0;
+}
+
+.qficon {
+	width: 1.6em;
+	height: 1.6em;
+}
+
+.allSearch {
+	margin: 10px;
+	margin-bottom: 0px;
+	background: #fff;
+}
+
+.allSearch input {
+	position: relative;
+}
+
+/**首页顶部信息栏**/
+.scrollTextContainer{
+	width: 100%;
+	height: 30px;
+	background: #fff2cc;
+	position: relative;
+	overflow: hidden;
+}
+.scrollTextContainer:before{
+	content: '';
+	display: block;
+	width: 100%;
+	height: 8px;
+	background: #fff2cc;
+	position: absolute;
+	top: 0;
+	left: 30px;
+	z-index: 2;
+}
+.scrollTextContainer:after{
+	content: '';
+	display: block;
+	width: 100%;
+	height: 8px;
+	background: #fff2cc;
+	position: absolute;
+	bottom: 0;
+	left: 30px;
+	z-index: 2;
+}
+.scrollTextContainer .scrollText{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+}
+.scrollTextContainer .scrollIcon{
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.scrollTextContainer .scrollIcon .qficon{
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+}
+.scrollTextContainer .scrollText .scrollItem{
+	width: 100%;
+	line-height: 30px;
+	font-size: 14px;
+	color: #666;
+	text-indent: 34px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
