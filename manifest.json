@@ -478,6 +478,15 @@
 					"html/look/joke.html"
 				],
 				"priority": 0
+			},
+			"html/app/index.html": {
+				"resources": [],
+				"refer": [
+					"html/app/tab1.html",
+					"html/app/tab2.html",
+					"html/app/tab3.html"
+				],
+				"priority": 0
 			}
 		},
 		"idle": {

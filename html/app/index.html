@@ -10,26 +10,58 @@
 
 	<body>
 		<nav class="mui-bar mui-bar-tab">
-		    <a class="mui-tab-item mui-active">
-		        <span class="mui-icon mui-icon-home"></span>
-		        <span class="mui-tab-label">首页</span>
-		    </a>
-		    <a class="mui-tab-item">
-		        <span class="mui-icon mui-icon-phone"></span>
-		        <span class="mui-tab-label">课程</span>
-		    </a>
-		    <a class="mui-tab-item">
-		        <span class="mui-icon mui-icon-email"></span>
-		        <span class="mui-tab-label">我的</span>
-		    </a>
+			<a class="mui-tab-item mui-active">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a class="mui-tab-item">
+				<span class="mui-icon mui-icon-phone"></span>
+				<span class="mui-tab-label">课程</span>
+			</a>
+			<a class="mui-tab-item">
+				<span class="mui-icon mui-icon-email"></span>
+				<span class="mui-tab-label">我的</span>
+			</a>
 		</nav>
 		<script src="../../js/jquery.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/mui.min.js"></script>
 		<script type="text/javascript">
-			$(document).ready(function () {
+			$(document).ready(function() {
 				mui.init()
-				$('.mui-tab-item').on('click', function () {
-					alert($(this).index())
+				mui.plusReady(function() {
+					var tab1 = plus.webview.create('/html/app/tab1.html', 'tab1', {
+						bottom: '51px',
+						top: '0px'
+					});
+					var tab2 = plus.webview.create('/html/app/tab2.html', 'tab2', {
+						bottom: '51px',
+						top: '0px'
+					});
+					var tab3 = plus.webview.create('/html/app/tab3.html', 'tab3', {
+						bottom: '51px',
+						top: '0px'
+					});
+					plus.webview.show('tab1', 'none', 0)
+					$('.mui-tab-item').on('click', function() {
+						var tindex = $(this).index()
+							switch(tindex) {
+								case 0:
+									plus.webview.show('tab1', 'slide-in-right', 200)
+									plus.webview.hide('tab2', 'slide-out-left', 200)
+									plus.webview.hide('tab3', 'slide-out-left', 200)
+									break
+								case 1:
+									plus.webview.show('tab2', 'slide-in-right', 200)
+									plus.webview.hide('tab1', 'slide-out-left', 200)
+									plus.webview.hide('tab3', 'slide-out-left', 200)
+									break
+								case 2:
+									plus.webview.show('tab3', 'slide-in-right', 200)
+									plus.webview.hide('tab2', 'slide-out-left', 200)
+									plus.webview.hide('tab1', 'slide-out-left', 200)
+									break
+							}
+					})
 				})
 			})
 		</script>

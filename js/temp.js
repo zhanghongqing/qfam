@@ -45,5 +45,23 @@ const Temp = {
 				${name}
 			</a>
 		</li>`
+	},
+	slideb (image_url, href) {
+		return `
+		<div class="mui-slider-item mui-slider-item-duplicate">
+			<a href="${href}">
+				<img src="${image_url}">
+			</a>
+		</div>
+		`
+	},
+	slideItem (href, image_url) {
+		return `
+		<div class="mui-slider-item">
+			<a href="${href}">
+				<img src="${image_url}">
+			</a>
+		</div>
+		`
 	}
 }

@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			.indexHeader {
+				background: #e75151;
+				text-align: center;
+				box-shadow: none;
+			}
+			
+			.indexHeader img {
+				height: 100%;
+				padding: 7px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav indexHeader">
+			<img src="../../images/headerlogo.png" />
+		</header>
+		<div class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<!--这里放置真实显示的DOM内容-->
+				<div id="slider" class="mui-slider">
+					<div class="mui-slider-group mui-slider-loop">
+					</div>
+					<div class="mui-slider-indicator">
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/util.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/temp.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				mui.init()
+				mui(".mui-scroll-wrapper").scroll({});
+				mui.plusReady(function() {
+					mui.back = function() {
+						plus.webview.close('appindex')
+						plus.webview.close('tab1')
+						plus.webview.close('tab2')
+						plus.webview.close('tab3')
+					}
+					init()
+				})
+			})
+
+			function init() {
+				loadData()
+			}
+
+			function loadData() {
+				util.getData('qa/app/banner', '', function(data) {
+					var data = data.data
+					$("#slider .mui-slider-group.mui-slider-loop").append(Temp.slideb(data[data.length - 1].detail_url, data[data.length - 1].image_url))
+					data.forEach(function(e, i) {
+						$("#slider .mui-slider-group.mui-slider-loop").append(Temp.slideItem(e.detail_url, e.image_url))
+						$("#slider .mui-slider-indicator").append('<div class="mui-indicator"></div>')
+					})
+					$("#slider .mui-slider-group.mui-slider-loop").append(Temp.slideb(data[0].detail_url, data[0].image_url))
+					var gallery = mui('.mui-slider');
+					gallery.slider({
+						interval: 3000 //自动轮播周期，若为0则不自动播放，默认为0；
+					});
+				}, function() {
+					mui.toast('获取首页数据失败', {
+						duration: 'long',
+						type: 'div'
+					})
+				})
+			}
+		</script>
+	</body>
+
+</html>

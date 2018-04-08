@@ -97,5 +97,13 @@
       "html/look/joke.html"
     ],
     "resources": []
+  },
+  "html/app/index.html": {
+    "refer": [
+      "html/app/tab1.html",
+      "html/app/tab2.html",
+      "html/app/tab3.html"
+    ],
+    "resources": []
   }
 }
