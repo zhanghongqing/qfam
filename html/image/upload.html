@@ -10,6 +10,7 @@
 
 	<body>
 		<button type="button" class="mui-btn mui-btn-outlined open">默认</button>
+		<img id="img" src="" />
 		<script src="../../js/jquery.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../js/mui.min.js"></script>
 		<script type="text/javascript">
@@ -25,6 +26,7 @@
 					plus.gallery.pick(
 						function(path) {
 							mui.toast(path);
+							$('#img').attr('src',path)
 						},
 						function(e) {
 							mui.toast(e);

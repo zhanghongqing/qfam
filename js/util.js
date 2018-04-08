@@ -1,8 +1,8 @@
 var util = {
 	options: {
 		ACTIVE_COLOR: "#007aff",
-		NORMAL_COLOR: "#000",
-		subpages: ["html/tab-webview-subpage-chat.html", "html/tab-webview-subpage-contact.html"]
+		NORMAL_COLOR: "#666",
+		subpages: ["html/manage.html", "html/look.html", "html/mine.html"]
 	},
 	/**
 	 *  简单封装了绘制原生view控件的方法
@@ -117,6 +117,22 @@ var util = {
 			error: error
 		})
 	},
+	getYYData: function (url, param, success, error) {
+		$.ajax({
+			type: "post",
+			data: {
+		        "showapi_timestamp": formatterDateTime(),
+		        "showapi_appid": 61038, //这里需要改成自己的appid
+		        "showapi_sign": 'b2c343cd1f6647e5832e35196698433c',  //这里需要改成自己的应用的密钥secret
+		        "page":"1",
+		        "maxResult":"10"
+        	},
+			url: url,
+			dataType: 'json',
+			success: success,
+			error: error
+		})
+	},
 	/*
 	 * query
 	 */
@@ -186,3 +202,24 @@ var util = {
 
 	}
 };
+
+function formatterDateTime() {
+  var date=new Date()
+  var month=date.getMonth() + 1
+        var datetime = date.getFullYear()
+                + ""// "年"
+                + (month >= 10 ? month : "0"+ month)
+                + ""// "月"
+                + (date.getDate() < 10 ? "0" + date.getDate() : date
+                        .getDate())
+                + ""
+                + (date.getHours() < 10 ? "0" + date.getHours() : date
+                        .getHours())
+                + ""
+                + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date
+                        .getMinutes())
+                + ""
+                + (date.getSeconds() < 10 ? "0" + date.getSeconds() : date
+                        .getSeconds());
+        return datetime;
+    }

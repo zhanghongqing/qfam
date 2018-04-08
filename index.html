@@ -74,10 +74,10 @@
 								<div class="scrollText"></div>
 							</div>
 							<div class="mui-input-row mui-search allSearch">
-							    <input type="search"  class="mui-input-clear" placeholder="">
+								<input type="search" class="mui-input-clear" placeholder="">
 							</div>
 							<ul class="mui-table-view mui-grid-view mui-grid-9"></ul>
-
+							<img src="images/appdtjh.jpg">
 						</div>
 					</div>
 				</div>
@@ -89,45 +89,49 @@
 		<script src="js/temp.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/components/leftPanel.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			$(document).ready(function () {
+			$(document).ready(function() {
 				init()
 			})
 			var scrollIndex = 0
-			
-			function init () {
+
+			function init() {
 				loadNotice()
 			}
-			
-			function loadNotice () {
-				util.getData('qa/index/notice', '', function (data) {
+
+			function loadNotice() {
+				util.getData('qa/index/notice', '', function(data) {
 					$('.scrollTextContainer .scrollText').append('<div class="scrollItem">今日注册用户数量为' + data.student + '人</div>')
 					$('.scrollTextContainer .scrollText').append('<div class="scrollItem">今日完成订单数量为' + data.order + '个</div>')
-					$('.scrollTextContainer .scrollText').append('<div class="scrollItem">今日销售最多课程为' + data.hot + '</div>')
+					if(data.hot !== 0) {
+						$('.scrollTextContainer .scrollText').append('<div class="scrollItem">今日销售最多课程为' + data.hot + '</div>')
+					}
 					var firstChild = $('.scrollTextContainer .scrollText .scrollItem').eq(0)
 					$('.scrollTextContainer .scrollText').append(firstChild[0].outerHTML)
-					setInterval(function () {
+					setInterval(function() {
 						textMove()
 					}, 3000)
-				}, function (error) {
+				}, function(error) {
 					console.log(error)
 				})
 			}
-			
-			function textMove () {
+
+			function textMove() {
 				scrollIndex += 1
 				scrollIndex = scrollIndex % $('.scrollTextContainer .scrollText .scrollItem').length
 				scrollNext()
 			}
-			
-			function scrollNext () {
-				$('.scrollTextContainer .scrollText').animate({top: (scrollIndex * -30) + 'px'}, 1000, '', function () {
-					if (scrollIndex === $('.scrollTextContainer .scrollText .scrollItem').length - 1) {
+
+			function scrollNext() {
+				$('.scrollTextContainer .scrollText').animate({
+					top: (scrollIndex * -30) + 'px'
+				}, 1000, '', function() {
+					if(scrollIndex === $('.scrollTextContainer .scrollText .scrollItem').length - 1) {
 						$('.scrollTextContainer .scrollText').css('top', '0')
 						scrollIndex = 0
 					}
 				})
 			}
-			
+
 			(function() {
 				mui.init({
 					swipeBack: true //启用右滑关闭功能
@@ -138,7 +142,8 @@
 				});
 				mui.plusReady(function() {
 					var self = plus.webview.currentWebview(),
-						leftPos = Math.ceil((window.innerWidth - 60) / 2); // 设置凸起大图标为水平居中
+						leftPos = Math.ceil((window.innerWidth - 60) / 2),
+						centerPos = Math.ceil((window.innerWidth) / 2); // 设置凸起大图标为水平居中
 
 					/**	
 					 * drawNativeIcon 绘制带边框的半圆，
@@ -212,34 +217,133 @@
 							size: '22px'
 						}
 					}]);
+					
+					var cd = 50
+					var appleft = centerPos - cd - 20
+					var webleft = centerPos + 20
+					var ctop = window.innerHeight - cd - 80
+					
+					var circleEventBg = util.drawNative('tbg', {
+						width: '100%',
+						height: '100%',
+						left: '0',
+						top: '0'
+					}, [{
+						tag: 'rect',
+						id: 'apprect',
+						position: {
+							top: ctop + 'px',
+							left: appleft + 'px',
+							width: cd + 'px',
+							height: cd + 'px'
+						},
+						rectStyles: {
+							color: '#fff',
+							radius: '50%',
+							borderColor: 'rgba(0,0,0,0.1)',
+							borderWidth: '8px'
+						}
+					}, {
+						tag: 'rect',
+						id: 'webrect',
+						position: {
+							top: ctop + 'px',
+							left: webleft + 'px',
+							width: cd + 'px',
+							height: cd + 'px'
+						},
+						rectStyles: {
+							color: '#fff',
+							radius: '50%',
+							borderColor: 'rgba(0,0,0,0.1)',
+							borderWidth: '8px'
+						}
+					}, {
+						tag: 'font',
+						id: 'apptext',
+						text: 'APP', //此为字体图标Unicode码'\e600'转换为'\ue600'
+						position: {
+							top: ctop + 'px',
+							left: appleft + 'px',
+							width: cd + 'px',
+							height: cd + 'px'
+						},
+						textStyles: {
+							align: 'center',
+							color: '#666',
+							weight: 'bold',
+							size: '18px'
+						}
+					}, {
+						tag: 'font',
+						id: 'webtext',
+						text: 'WEB', //此为字体图标Unicode码'\e600'转换为'\ue600'
+						position: {
+							top: ctop + 'px',
+							left: webleft + 'px',
+							width: cd + 'px',
+							height: cd + 'px'
+						},
+						textStyles: {
+							align: 'center',
+							color: '#666',
+							weight: 'bold',
+							size: '18px'
+						}
+					}])
 					// append 到父webview中
+					self.append(circleEventBg);
 					self.append(drawNativeIcon);
+					circleEventBg.addEventListener('click', function(e) {
+						var cxpos = e.clientX;
+						var cypos = e.clientY;
+						if (cxpos > appleft && cxpos < appleft + cd && cypos > ctop && cypos < ctop + cd) {
+							plus.webview.open('/html/app/index.html', 'new', {}, 'zoom-fade-out', 200);
+						}
+						if (cxpos > webleft && cxpos < webleft + cd && cypos > ctop && cypos < ctop + cd) {
+							plus.webview.open('/html/webmobile.html', 'new', {}, 'zoom-fade-out', 200);
+						}
+						hideBtns()
+					})
+					circleEventBg.hide()
 
 					//自定义监听图标点击事件
-					//					var active_color = '#fff';
-					//					drawNativeIcon.addEventListener('click', function(e) {
-					//						mui.alert('你点击了图标，你在此可以打开摄像头或者新窗口等自定义点击事件。', '悬浮球点击事件');
-					//						// 重绘字体颜色
-					//						if(active_color == '#fff') {
-					//							drawNativeIcon.drawText('\u62a2\u5206', {}, {
-					//								fontSrc: '_www/fonts/iconfont.ttf',
-					//								align: 'center',
-					//								color: '#000',
-					//								size: '30px'
-					//							}, 'icon');
-					//							active_color = '#000';
-					//						} else {
-					//							drawNativeIcon.drawText('\ue600', {}, {
-					//								fontSrc: '_www/fonts/iconfont.ttf',
-					//								align: 'center',
-					//								color: '#fff',
-					//								size: '30px'
-					//							}, 'icon');
-					//							active_color = '#fff';
-					//						}
-					//
-					//					});
-					// 中间凸起图标绘制及监听点击完毕
+					drawNativeIcon.addEventListener('click', function(e) {
+						if(circleEventBg.isVisible()) {
+							hideBtns()
+						} else {
+							showBtns()
+						}
+					});
+
+					function showBtns() {
+						drawNativeIcon.drawText('\u62a2\u5206', {}, {
+							fontSrc: '_www/fonts/iconfont.ttf',
+							align: 'center',
+							color: '#000',
+							weight: 'bold',
+							size: '22px'
+						}, 'icon');
+						plus.nativeObj.View.startAnimation({
+							type: 'slide-in-right',
+							duration: '100'
+						}, circleEventBg);
+						plus.nativeObj.View.clearAnimation();
+						circleEventBg.show()
+					}
+
+					function hideBtns() {
+						drawNativeIcon.drawText('\u62a2\u5206', {}, {
+							fontSrc: '_www/fonts/iconfont.ttf',
+							align: 'center',
+							color: '#fff',
+							weight: 'bold',
+							size: '22px'
+						}, 'icon');
+						circleEventBg.hide()
+					}
+
+					//中间凸起图标绘制及监听点击完毕
 
 					// 创建子webview窗口 并初始化
 					var aniShow = {};
@@ -277,23 +381,23 @@
 							return;
 						}
 
-						if(currIndex !== 3) {
-							//底部选项卡切换
-							util.toggleNview(currIndex);
-							// 子页面切换
-							util.changeSubpage(targetPage, activePage, aniShow);
-							//更新当前活跃的页面
-							activePage = targetPage;
-						} else {
-							//第四个tab 打开新窗口
-							plus.webview.open('html/new-webview.html', 'new', {}, 'slide-in-right', 200);
-						}
+						//底部选项卡切换
+						util.toggleNview(currIndex);
+						// 子页面切换
+						util.changeSubpage(targetPage, activePage, aniShow);
+						//更新当前活跃的页面
+						activePage = targetPage;
+						//						if(currIndex !== 3) {
+						//						} else {
+						//							//第四个tab 打开新窗口
+						//							plus.webview.open('html/new-webview.html', 'new', {}, 'slide-in-right', 200);
+						//						}
 					});
-					
-					$('.mui-table-view.mui-grid-view.mui-grid-9').on('tap', '.linkTo', function () {
+
+					$('.mui-table-view.mui-grid-view.mui-grid-9').on('tap', '.linkTo', function() {
 						plus.webview.open($(this).attr('data-url'), 'new', {}, 'slide-in-right', 200);
 					})
-					
+
 				});
 			})();
 		</script>
