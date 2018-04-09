@@ -11,6 +11,16 @@ const Temp = {
 			</li>
 		`
 	},
+	gridItemImage(img, name, url) {
+		return `
+			<li class="mui-table-view-cell mui-media mui-col-xs-3 linkTo" data-url="${url}">
+				<a href="#">
+					<img src="${img}">
+					<div class="mui-media-body">${name}</div>
+				</a>
+			</li>
+		`
+	},
 	gdlistItem(title) {
 		return `
 		<div class="gridItem">
@@ -46,7 +56,7 @@ const Temp = {
 			</a>
 		</li>`
 	},
-	slideb (image_url, href) {
+	slideb (href, image_url) {
 		return `
 		<div class="mui-slider-item mui-slider-item-duplicate">
 			<a href="${href}">
@@ -62,6 +72,39 @@ const Temp = {
 				<img src="${image_url}">
 			</a>
 		</div>
+		`
+	},
+	tableListHeader (name, url) {
+		return `
+		<li class="mui-table-view-cell">
+			<a href="${url}" class="mui-navigate-right">
+				${name}
+				<span>更多</span>
+			</a>
+		</li>
+		<li class="courseContainer">
+			<ul class="mui-table-view"></ul>
+		</li>
+		`
+	},
+	tabListItem (item) {
+		let tag = ''
+		item.tags.forEach(function (e, i) {
+			tag += `<div class="tag">${e}</div>`
+		})
+		return `
+		<li class="mui-table-view-cell mui-media">
+		    <a href="javascript:;">
+			    <img class="mui-media-object mui-pull-right" src="${item.image_url}">
+				<div class="mui-media-body">
+					${item.name}
+					<div class="tags">
+						${tag}
+					</div>
+					<div class="price">${item.is_free == 1 ? '免费' : '¥' + item.current_price}</div>
+				</div>
+			</a>
+		</li>
 		`
 	}
 }
